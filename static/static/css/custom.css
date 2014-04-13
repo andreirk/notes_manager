@@ -1,0 +1,26 @@
+body {
+margin: 0;
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 20px;
+color: rgba(60, 49, 30, 0.39);
+background-color: #D13353;
+}
+p {
+
+	color: #23E636;
+}
+
+body {
+	background: url('../images/women_and_girl.jpg') 100% 100% no-repeat;
+	
+    background-size: cover; /* Масштабируем фон */
+    
+	
+
+}
+
+.hero-unit {
+
+opacity: 0.7;
+}
