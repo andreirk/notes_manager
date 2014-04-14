@@ -8,7 +8,17 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 # for Gmail or google apps 
-from .email_info import *
+# it may be:
+
+#from .email_info import *
+
+# or the same:
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'falkonirk@gmail.com'
+EMAIL_HOST_PASSWORD = 'i81505081i'
+EMAIL_PORT = 587
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -64,6 +74,9 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config( default='sqlite:////'+os.path.join(BASE_DIR, 'db.sqlite3'))
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -91,9 +104,7 @@ TEMPLATE_DIRS = (
         os.path.join(BASE_DIR, 'static', 'templates'),
 
     )
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

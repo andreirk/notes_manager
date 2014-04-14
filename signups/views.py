@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response, RequestContext
+﻿from django.shortcuts import render, render_to_response, RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -20,13 +20,13 @@ def home(request):
 		save_it.save()
 		#send_mail(subject, message, from_email, to_list, fail_silently=True)
 	
-		subject = "Thank you for joining!!!"
-		message = 'Wellcom to Us! \n We will meet soot!'
+		subject = "Спасибо что вы с нами {0}".format(save_it.first_name)
+		message = '<h1>Wellcom to Us!</h1> \n We will meet soot!'
 		from_email = settings.EMAIL_HOST_USER
 		to_list = [save_it.email, settings.EMAIL_HOST_USER]
 
 		send_mail(subject,message,from_email,to_list, fail_silently=True)	
-		messages.success(request,'Thanks you for joining')
+		messages.success(request,'Thanks you for joining {0}'.format(save_it.first_name))
 		return HttpResponseRedirect('/thanks/')
 
 	form = SignUpForm()
@@ -40,6 +40,7 @@ def thanks(request):
 
 
 def aboutus(request):
+	name = "save_it.first_name"
 	return render_to_response('aboutus.html', locals(), 
 							   context_instance=RequestContext(request))
 

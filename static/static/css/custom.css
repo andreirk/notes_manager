@@ -8,7 +8,7 @@ background-color: #D13353;
 }
 p {
 
-	color: #23E636;
+	color: #000000;
 }
 
 body {
@@ -16,11 +16,32 @@ body {
 	
     background-size: cover; /* Масштабируем фон */
     
-	
 
 }
 
 .hero-unit {
 
 opacity: 0.7;
+}
+
+.span3 {background-color: #eeeeee;
+	opacity: 0.5;
+	border-radius:6px; 
+-webkit-border-radius:6px; 
+-moz-border-radius:5px; 
+-khtml-border-radius:10px;
+
+
+}
+
+.hero-unit h1 {
+
+	color: rgb(50, 92, 57);
+
+}
+
+h2 {
+	
+	color: rgb(50, 92, 57);
+
 }
