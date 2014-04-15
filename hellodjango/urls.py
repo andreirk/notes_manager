@@ -17,6 +17,8 @@ urlpatterns = patterns('',
     url(r'^aboutus/', 'signups.views.aboutus', name="aboutus"),
 
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^polls/', include('polls.urls',namespace="polls")),
 )
 
 if settings.DEBUG:

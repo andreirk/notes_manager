@@ -3,7 +3,7 @@ margin: 0;
 font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 20px;
-color: rgba(60, 49, 30, 0.39);
+color: rgba(60, 49, 30, 0.89);
 background-color: #D13353;
 }
 p {
@@ -24,8 +24,8 @@ body {
 opacity: 0.7;
 }
 
-.span3 {background-color: #eeeeee;
-	opacity: 0.5;
+.span3,.span9 {background-color: #eeeeee;
+	opacity: 0.7;
 	border-radius:6px; 
 -webkit-border-radius:6px; 
 -moz-border-radius:5px; 
@@ -33,6 +33,16 @@ opacity: 0.7;
 
 
 }
+
+
+pre {
+
+	font-size: 16px;
+	color: #0C0101
+
+
+}
+
 
 .hero-unit h1 {
 
