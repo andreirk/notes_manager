@@ -47,8 +47,16 @@ pre {
 .hero-unit h1 {
 
 	color: rgb(50, 92, 57);
+	text-align: center;
 
 }
+
+.hero-unit p {
+
+	text-indent: 20px;
+
+}
+
 
 h2 {
 	
