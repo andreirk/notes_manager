@@ -1,0 +1,35 @@
+
+
+{% extends 'base.html'  %}
+
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'static/images/style.css' %}" />
+
+{% block content%}
+<style type="text/css">
+	
+body {
+
+	background-image: none;
+}
+
+
+</style>
+
+
+{% if latest_note_list %}
+
+    <div>
+    {% for note in latest_note_list %}
+        <h3><a href="">{{ note.title }}</a></h3>
+        <p> {{note.pub_date}} </p>
+        <p>Категория : {{note.category}}</p>
+        <p> {{ note.content}} </p>
+    {% endfor %}
+    </div>
+{% else %}
+    <p>No notes are available.</p>
+{% endif %}
+
+{% endblock %}

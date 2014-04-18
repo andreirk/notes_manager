@@ -51,6 +51,9 @@ INSTALLED_APPS = (
     'signups',
     "polls",
     'todolist',
+    'loginsys',
+    'notes',
+
 )
 
 MIDDLEWARE_CLASSES = (

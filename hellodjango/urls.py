@@ -19,6 +19,12 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^polls/', include('polls.urls',namespace="polls")),
+
+    url(r'^auth/', include('loginsys.urls',namespace="loginsys")),
+
+    url(r'^notes/', include('notes.urls',namespace="note")),
+
+   
 )
 
 if settings.DEBUG:

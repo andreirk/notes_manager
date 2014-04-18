@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response, redirect
 
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect,Http404
@@ -6,6 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect,Http404
 from django.core.urlresolvers import reverse
 
 from django.template import RequestContext, loader
+
+from django.contrib import auth
 
 from polls.models import Poll, Choice
 
@@ -22,8 +24,8 @@ def index(request):
     #     'latest_poll_list': latest_poll_list,
     # })
     # return HttpResponse(template.render(context))
-    context = {'latest_poll_list': latest_poll_list}
-    return render(request, 'polls/index.html', context)
+    context = {'latest_poll_list': latest_poll_list, "username":auth.get_user(request).username}
+    return render_to_response('polls/index.html', context)
 
 def detail(request, poll_id):
     # return HttpResponse("You're looking at poll %s." % poll_id)
@@ -33,11 +35,11 @@ def detail(request, poll_id):
     #     raise Http404
     # return render(request, 'polls/detail.html', {'poll': poll})
     poll = get_object_or_404(Poll, pk=poll_id)
-    return render(request, 'polls/detail.html', {'poll': poll})
+    return render(request, 'polls/detail.html', {'poll': poll,"username":auth.get_user(request).username})
 
 def results(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
-    return render(request, 'polls/results.html', {'poll': poll})
+    return render(request, 'polls/results.html', {'poll': poll,"username":auth.get_user(request).username})
 
 def vote(request, poll_id):
     p = get_object_or_404(Poll, pk=poll_id)

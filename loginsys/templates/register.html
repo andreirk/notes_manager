@@ -1,0 +1,30 @@
+{% extends 'base.html'  %}
+
+
+
+{% block login %}
+
+<style type="text/css">
+	
+body {
+
+	background-image: none;
+}
+
+</style>
+
+<div align="center">
+<h1>Регистрация {{username}} !</h1>
+
+<div >
+
+	<form class="form-horizontal" role="form" action="/auth/register/" method="post">
+	{% csrf_token %}
+	{{ form }}
+	<div>	<input class='btn btn-success' type="submit" value="Зарегистрироваться"> </div>
+
+	</form>
+</div>
+
+</div>
+{% endblock %}

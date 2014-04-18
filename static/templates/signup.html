@@ -46,16 +46,19 @@
           <p><a class="btn" href="#">Узнать подробнее &raquo;</a></p>
         </div>
    
+   {% if not username %}
 
   <div class="span3">
         	<h2> Быстрая регистрация </h2>
 
-			<form method="POST" action=""> {% csrf_token %}
+			<form method="POST" action="/auth/register/"> {% csrf_token %}
 				{{form.as_p}}
 				<input class="btn btn-success btn-block" type="submit">
 			</form>
 
         </div>
+
+     {%  endif %}   
 
 	
 {% endblock %}
