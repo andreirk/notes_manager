@@ -17,10 +17,13 @@ body {
 
 </style>
 
-
-{% if latest_note_list and username %}
+{% if username  %}
 
 <a href="/notes/addnote/">Добавить заметку</a>
+
+{% if latest_note_list %}
+
+
 
     <div class="span7">
     {% for note in latest_note_list %}
@@ -65,6 +68,7 @@ body {
 
 {% else %}
     <p>No notes are available.</p>
+{% endif %}
 {% endif %}
 
 {% endblock %}

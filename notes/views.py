@@ -3,7 +3,7 @@
 import datetime
 
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.shortcuts import render_to_response, redirect
@@ -12,6 +12,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.context_processors import csrf
 from django.core.paginator import Paginator
 from forms import NoteAddForm
+from models import Note
 
 
 from notes.models import Category, Note
@@ -38,12 +39,14 @@ def index(request, page_number=1):
     return render_to_response('notes/index.html', context)
 
 def add_note(request):
-	
+	# TODO добавить валидацию формы, сейчас можно отправить пустую форму, и возникнет ощибка, 
+	# это никак не обрабатывается
 	if request.POST:
 		user = auth.get_user(request)
 		form = NoteAddForm(request.POST)
+		note = form.save(commit=False)
 		if form.is_valid():
-			note = form.save(commit=False)
+			
 			note.pub_date = datetime.datetime.now()
 			note.author = user
 			form.save()
@@ -67,6 +70,41 @@ def note(request, note_id):
 	return render_to_response('notes/note.html', context)
 
 
+# def change_note(request,note_id):
+# 	args = {}
+# 	args.update(csrf(request))
+# 	old_note = Note.objects.get(pk=note_id)
+# 	data = {'title': old_note.title,
+# 			 'content':old_note.content,
+# 			 'category':old_note.category,
+# 			 'is_chosen':old_note.is_chosen,
+# 			 'is_published':old_note.is_published,
+# 			 'pub_date':old_note.pub_date,
+# 			 'author':old_note.author}
+# 	form = NoteAddForm(initial=data)
+# 	args['form'] = form
+# 	args['note'] = old_note
+# 	if request.POST:
+# 		new_note_form = NoteAddForm(request.POST)
+# 		if new_note_form.is_valid():
+# 			new_note = new_note_form.save(commit=False)
+# 			new_note.author = data['author']
+# 			new_note.pub_date = data['pub_date']
+# 			new_note_form.save()
+# 			# new_note = get_object_or_404(Note,pk=note_id)
+# 			# new_note.title = request.POST['title']
+# 			# new_note.content = 'terlim bom bom'#request.POST['content']
+# 			# new_note.category = request.POST['category']
+# 			# new_note.is_chosen = request.POST['is_chosen']
+# 			# new_note.is_published = request.POST['is_published']
+# 			# new_note.save()
+			
+# 		return redirect('/notes/note/%s/' % new_note.id)
+# 	else:
+# 		return render_to_response("notes/change_note.html", args)
+
+
+
 def change_note(request,note_id):
 	args = {}
 	args.update(csrf(request))
@@ -80,20 +118,24 @@ def change_note(request,note_id):
 			 'author':old_note.author}
 	form = NoteAddForm(initial=data)
 	args['form'] = form
+	args['note_id'] = note_id
 	if request.POST:
 		new_note_form = NoteAddForm(request.POST)
 		if new_note_form.is_valid():
-			new_note = new_note_form.save(commit=False)
-			new_note.pub_date = old_note.pub_date
-			new_note_form.save()
-		return redirect('/notes/note/%s/' % note.id)
+			new_note = get_object_or_404(Note, pk=note_id)
+			new_note.title = request.POST['title']
+			new_note.content = request.POST['content']
+			new_note.category.id = request.POST['category']
+			new_note.is_chosen = request.POST['is_chosen']
+			new_note.is_published = request.POST['is_published']
+			new_note.save()
+
+			return redirect('/notes/note/%s/' % new_note.id)
+		else:
+			HttpResponse()
+
 	else:
 		return render_to_response("notes/change_note.html", args)
-
-
-
-
-
 
 
 

@@ -22,12 +22,13 @@ body {
 <div class="col-xs-12" >
 <div class="span8">
 
-<form action="/notes/addnote/" class="form-horizontal" role="form" method="POST">
+<form action="/notes/changenote/{{note_id}}/" class="form-horizontal" role="form" method="POST">
 {% csrf_token %}
 
 
     
 {{ form.as_p }}
+
 
 
 
