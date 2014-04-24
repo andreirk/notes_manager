@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "south",
     'signups',
     "polls",
     'todolist',
@@ -88,7 +89,7 @@ DATABASES['default'] =  dj_database_url.config( default='sqlite:////'+os.path.jo
 
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = None
 
 USE_I18N = True
 
@@ -109,6 +110,8 @@ TEMPLATE_DIRS = (
         os.path.join(BASE_DIR, 'static', 'templates'),
 
     )
+
+
 
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()

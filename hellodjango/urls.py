@@ -22,7 +22,7 @@ urlpatterns = patterns('',
 
     url(r'^auth/', include('loginsys.urls',namespace="loginsys")),
 
-    url(r'^notes/', include('notes.urls',namespace="note")),
+    url(r'^notes/', include('notes.urls',namespace="notes")),
 
    
 )

@@ -1,4 +1,7 @@
+import datetime
+
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Category(models.Model):
@@ -14,8 +17,10 @@ class Note(models.Model):
     category = models.ForeignKey(Category)
     is_chosen = models.BooleanField(default=False)
     is_published = models.BooleanField(default=False)
-
+    author = models.ForeignKey(User)
     pub_date = models.DateTimeField('date published')
+    change_date = models.DateTimeField(default=datetime.datetime.now())
+
     def __unicode__(self):  
         return self.title
 

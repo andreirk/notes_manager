@@ -13,10 +13,12 @@ body {
 
 </style>
 
-<div align="center">
-<h1>Регистрация {{username}} !</h1>
+<div class="span7">
+
 
 <div >
+
+<h1>Регистрация {{username}} !</h1>
 
 	<form class="form-horizontal" role="form" action="/auth/register/" method="post">
 	{% csrf_token %}

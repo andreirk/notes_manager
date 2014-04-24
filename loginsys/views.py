@@ -26,6 +26,7 @@ def login(request):
 			auth.login(request,user)
 			return redirect("/",args)
 		else:
+			args['username'] = ''
 			args['login_error'] = "Пользователь не найден"
 			return render_to_response('login.html',args)
 	else:
