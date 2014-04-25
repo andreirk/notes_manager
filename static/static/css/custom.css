@@ -1,0 +1,71 @@
+body {
+margin: 0;
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 20px;
+color: rgba(60, 49, 30, 0.89);
+background-color: #D13353;
+}
+p {
+
+	color: #000000;
+}
+
+body {
+	background: url('../images/women_and_girl.jpg') 100% 100% no-repeat;
+	
+    background-size: cover; /* Масштабируем фон */
+}
+
+.hero-unit {
+
+opacity: 0.7;
+}
+
+.span3,.span9, .span8 {background-color: #eeeeee;
+	opacity: 0.7;
+	border-radius:6px; 
+-webkit-border-radius:6px; 
+-moz-border-radius:5px; 
+-khtml-border-radius:10px;
+
+
+}
+
+
+pre {
+
+	font-size: 16px;
+	color: #0C0101
+
+
+}
+
+
+.hero-unit h1 {
+
+	color: rgb(50, 92, 57);
+	text-align: center;
+
+}
+
+.hero-unit p {
+
+	text-indent: 20px;
+
+}
+
+
+h2 {
+	
+	color: rgb(50, 92, 57);
+
+}
+
+textarea
+{
+    border:1px solid #999999;
+    width:80%;
+    margin:5px 0;
+    padding:3px;
+}

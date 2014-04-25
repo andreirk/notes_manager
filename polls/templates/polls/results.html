@@ -1,0 +1,32 @@
+{% extends 'base.html'  %}
+
+
+	{% block content%}
+
+	<style type="text/css">
+		
+	body {
+
+		background-image: none;
+	}
+
+	</style>
+	   
+
+		<h1>{{ poll.question }}</h1>
+
+		<ul>
+		{% for choice in poll.choice_set.all %}
+		    <li>{{ choice.choice_text }} -- {{ choice.votes }} голос</li>
+		{% endfor %}
+		</ul>
+
+		<a href="{% url 'polls:detail' poll.id %}">Голосовать ещё?</a>
+
+
+
+
+	{% endblock %}
+
+
+

@@ -1,0 +1,65 @@
+{% extends 'base.html'  %}
+
+{% block jumbotron %}
+
+   <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+
+      {% if messages %}
+      
+    
+      {% for message in messages %}
+            <h2{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h2>
+      {% endfor %}
+         
+    {% else %}
+      <h1>Добро пожаловать в онлайн-школу "Умничка"!</h1>
+        <p>Мы рады приветствовать Вас на сайте, посвященном дистанционному обучению младших школьников. 
+Здесь вы сможете узнать подробнее об обучении,
+о наших новостях, познакомиться с педагогами, записаться
+на урок, а также найдете множество интересной и полезной информации, касающейся воспитания и обучения детей младшего школьного возраста.</p>
+        <p><a href="#" class="btn btn-primary btn-large">Узнать больше &raquo;</a></p>
+       
+    {% endif %}  
+
+        
+      </div>
+
+{% endblock %}
+
+
+{% block content %}
+
+	 <div class="span9">
+          <h2>Для обучения необходимо:</h2>
+          <p style="font-size:16px;"> <pre>
+наличие компьютера с подключением к Интернету;
+гарнитура для общения по видеосвязи:
+      - наушники;
+      - микрофон;
+      - видеокамера (не обязательно, но желательно - в случае
+ее отсутствия преподаватель не сможет видеть ребенка во
+время занятия - это несколько затрудняет общение с
+учеником);
+наличие установленной на компьютере программы Skype.
+</pre> </p>
+          <p><a class="btn" href="#">Узнать подробнее &raquo;</a></p>
+        </div>
+   
+   {% if not username %}
+
+  <div class="span3">
+        	<h2> Быстрая регистрация </h2>
+
+			<form method="POST" action="/auth/register/"> {% csrf_token %}
+				{{form.as_p}}
+				<input class="btn btn-success btn-block" type="submit">
+			</form>
+
+        </div>
+
+     {%  endif %}   
+
+	
+{% endblock %}
+ 	

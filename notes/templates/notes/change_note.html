@@ -1,0 +1,43 @@
+
+
+{% extends 'base.html'  %}
+
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'static/images/style.css' %}" />
+
+{% block content%}
+<style type="text/css">
+	
+body {
+
+	background-image: none;
+}
+
+
+</style>
+
+
+
+<div class="col-xs-12" >
+<div class="span8">
+
+<form action="/notes/changenote/{{note_id}}/" class="form-horizontal" role="form" method="POST">
+{% csrf_token %}
+
+
+    
+{{ form.as_p }}
+
+
+
+
+<p class="span5"><input type="submit" value="Сохранить" class="btn btn-success"></p>
+
+</div>
+</form>
+
+</div>
+
+
+{% endblock %}

@@ -1,6 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
-
+*.py[cod]
 
 # C extensions
 *.so
@@ -21,12 +21,6 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-
-venv
-venv/
-*.pyc
-staticfiles
-
 
 # Installer logs
 pip-log.txt

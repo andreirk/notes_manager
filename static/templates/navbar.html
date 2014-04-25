@@ -1,0 +1,50 @@
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href='{% url "home" %}'>Умничка</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href='{% url "home" %}'>Домашняя</a></li>
+              <li><a href="/notes/">Менеджер заметок</a></li>
+              <li><a href='{% url "aboutus" %}'>О нас</a></li>
+              <li><a href="#contact">Контакты</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Еще <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/polls/">Опрос</a></li>
+                  <li><a href="#">Форум</a></li>
+                  <li><a href="#">Календарь</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">Органайзер</li>
+                  <li><a href="#">Фото</a></li>
+                  <li><a href="#">Магазин</a></li>
+                  <li><a href="/notes/">Менеджер заметок</a></li>
+                </ul>
+              </li>
+            </ul>
+
+           <ul class="nav pull-right">
+            {% if username  %}
+            <li><a href="/auth/logout">Выйти ({{ username }})</a></li>
+            {% else %}
+            <li><a href="/auth/login">Войти </a></li>
+            {% endif %}
+            </ul>
+
+             <!--    <form class="navbar-form pull-right" action="">
+          
+
+              <input class="span2" type="text" placeholder="Email">
+              <input class="span2" type="password" placeholder="Пароль">
+              <button type="submit" class="btn">Войти</button>
+            </form> -->
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
