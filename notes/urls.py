@@ -11,6 +11,12 @@ urlpatterns = patterns('',
     url(r'^changenote/(?P<note_id>\d+)/$', 'notes.views.change_note', name='change_note'),
 
 
+	url(r'^del_note/(?P<note_id>\d+)/$', 'notes.views.del_note', name='del_note'),
+
+	url(r'^success_delete/(?P<note_id>\d+)/$', 'notes.views.del_note', name='del_note'),
+
+
+
     url(r'^page/(\d+)/$', 'notes.views.index'),
 
     
