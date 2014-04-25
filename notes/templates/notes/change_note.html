@@ -22,6 +22,10 @@ body {
 <div class="col-xs-12" >
 <div class="span8">
 
+{% if error %}
+
+<h4 align='center' class="text-error">Ошибка!!! {{error | safe}}</h4>
+
 <form action="/notes/changenote/{{note_id}}/" class="form-horizontal" role="form" method="POST">
 {% csrf_token %}
 
@@ -37,6 +41,24 @@ body {
 </div>
 </form>
 
+{% else %}
+
+<form action="/notes/changenote/{{note_id}}/" class="form-horizontal" role="form" method="POST">
+{% csrf_token %}
+
+
+    
+{{ form.as_p }}
+
+
+
+
+<p class="span5"><input type="submit" value="Сохранить" class="btn btn-success"></p>
+
+</div>
+</form>
+
+{% endif %}
 </div>
 
 

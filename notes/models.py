@@ -34,3 +34,5 @@ class Note(models.Model):
     was_published_recently.short_description = 'Published recently?'
 
 
+
+

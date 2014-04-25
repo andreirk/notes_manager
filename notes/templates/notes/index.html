@@ -4,71 +4,74 @@
 
 {% load staticfiles %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'static/images/style.css' %}" />
 
 {% block content%}
-<style type="text/css">
-	
-body {
+	<style type="text/css">
+		
+	body {
 
-	background-image: none;
-}
-
-
-</style>
-
-{% if username  %}
-
-<a href="/notes/addnote/">Добавить заметку</a>
-
-{% if latest_note_list %}
+		background-image: none;
+	}
 
 
+	</style>
 
-    <div class="span7">
-    {% for note in latest_note_list %}
-    {% if username == note.author.username %}
-        <h3><a href="/notes/note/{{note.id}}">{{ note.title }}</a></h3>
-        <span style='background-color:#cccccc; color:white'>Дата создания: {{note.pub_date}} </span >
-        <h5>Категория: {{note.category}}</h5>
-        <p> {{ note.content}} </p>
-        <hr>
+	{% if username  %}
+
+			<a href="/notes/addnote/">Добавить заметку</a>
+
+			{% if latest_note_list %}
+
+
+
+			    <div class="span7">
+			    {% for note in latest_note_list %}
+			    {% if username == note.author.username %}
+			        <h3><a href="/notes/note/{{note.id}}">{{ note.title }}</a></h3>
+			        <span style='background-color:#cccccc; color:white'>Дата создания: {{note.pub_date}} </span >
+			        <h5>Категория: {{note.category}}</h5>
+			        <p> {{ note.content}} </p>
+			        <hr>
+				{% endif %}
+
+			    {% endfor %}
+
+			    <div class="row"> 
+			    <div class="pagination">
+			     <ul class="pagination">
+					    	{% if latest_note_list.has_previous %}
+					    	<li class="arrow"><a href="/notes/page/{{ latest_note_list.previous_page_number }}/">&laquo;</a></li>
+					    	{% else %}
+					    	<li class="disabled"><a href="">&laquo;</a></li>
+					    	{% endif %}
+
+					    	{% for page in latest_note_list.paginator.page_range %}
+					    		{% if page == latest_note_list.number %}
+					    	<li class="active"><a href="/notes/page/{{page}}/">{{page}}</a></li>
+					    	{% else %}
+
+					    	<li><a href="/notes/page/{{page}}/">{{page}}</a></li>
+					    	{% endif %}
+					    	{% endfor %}
+					    	{% if latest_note_list.has_next %}
+					    	<li class="arrow"><a href="/notes/page/{{latest_note_list.next_page_number}}/">&raquo;</a></li>
+					    	{% else %}
+					    	<li class="disabled"><a href="">&raquo;</a></li>
+					    	{% endif %}
+					    </ul>
+				    	
+			    </div>
+
+			</div>
+			<div>
+
+			{% else %}
+			    <p class="span7">No notes are available.</p>
+			{% endif %}
+	{% else %}
+		
+		<p class="span7" >Для создания и просмотра заметок, необходимо войти в систему</p>
+
 	{% endif %}
-
-    {% endfor %}
-
-    <div class="row"> 
-    <div class="pagination">
-     <ul class="pagination">
-		    	{% if latest_note_list.has_previous %}
-		    	<li class="arrow"><a href="/notes/page/{{ latest_note_list.previous_page_number }}/">&laquo;</a></li>
-		    	{% else %}
-		    	<li class="disabled"><a href="">&laquo;</a></li>
-		    	{% endif %}
-
-		    	{% for page in latest_note_list.paginator.page_range %}
-		    		{% if page == latest_note_list.number %}
-		    	<li class="active"><a href="/notes/page/{{page}}/">{{page}}</a></li>
-		    	{% else %}
-
-		    	<li><a href="/notes/page/{{page}}/">{{page}}</a></li>
-		    	{% endif %}
-		    	{% endfor %}
-		    	{% if latest_note_list.has_next %}
-		    	<li class="arrow"><a href="/notes/page/{{latest_note_list.next_page_number}}/">&raquo;</a></li>
-		    	{% else %}
-		    	<li class="disabled"><a href="">&raquo;</a></li>
-		    	{% endif %}
-		    </ul>
-	    	
-    </div>
-
-</div>
-<div>
-
-{% else %}
-    <p>No notes are available.</p>
-{% endif %}
-{% endif %}
 
 {% endblock %}

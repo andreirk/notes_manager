@@ -24,6 +24,7 @@ def login(request):
 
 		if user is not None:
 			auth.login(request,user)
+			request.session.set_expiry(3800)
 			return redirect("/",args)
 		else:
 			args['username'] = ''
@@ -48,6 +49,7 @@ def register(request):
 			newuser = auth.authenticate(username=newuser_form.cleaned_data['username'],
 										password=newuser_form.cleaned_data['password2'])
 			auth.login(request,newuser)
+			request.session.set_expiry(3800)
 			return redirect('/')
 		else:
 			args['form'] = newuser_form

@@ -41,27 +41,35 @@ def index(request, page_number=1):
     return render_to_response('notes/index.html', context)
 
 def add_note(request):
+	args = {}
+	args.update(csrf(request))
+	username = auth.get_user(request).username
+	args['username'] = username
 	# TODO добавить валидацию формы, сейчас можно отправить пустую форму, и возникнет ощибка, 
 	# это никак не обрабатывается
 	if request.POST:
 		user = auth.get_user(request)
 		form = NoteAddForm(request.POST)
-		note = form.save(commit=False)
+		
 		if form.is_valid():
-			
+			note = form.save(commit=False)
 			note.pub_date = datetime.datetime.now()
 			note.author = user
 			form.save()
-			request.session.set_expiry(3800)
+			
 			# request.session['pause'] = True
-		return redirect('/notes/note/%s/' % note.id)
+			return redirect('/notes/note/%s/' % note.id)
+		else:
+			error = 'Не корректные данные, проверьте правильность заполнения формы <br> (все поля должны быть заполнены)'
+			new_note_form = NoteAddForm(request.POST)
+			args['error'] = error
+			args['form'] = new_note_form
+			return render_to_response("notes/add_note.html", args)
 	else:
-		username = auth.get_user(request).username
 		note_form = NoteAddForm
-		args = {}
-		args.update(csrf(request))
 		args['form'] = note_form
-		args['username'] = username
+		
+
 		return render_to_response('notes/add_note.html',args)
 
 
@@ -70,6 +78,67 @@ def note(request, note_id):
 	username = auth.get_user(request).username
 	context = {"note": Note.objects.get(id = note_id),'username':username}
 	return render_to_response('notes/note.html', context)
+
+
+# a = Article.objects.get(pk=1)
+#  f = ArticleForm(request.POST, instance=a)
+#  f.save()
+
+def change_note(request,note_id):
+	username = auth.get_user(request).username
+	args = {}
+	args['username'] = username
+	args.update(csrf(request))
+	old_note = Note.objects.get(pk=note_id)
+	data = {'title': old_note.title,
+			 'content':old_note.content,
+			 'category':old_note.category,
+			 'is_chosen':old_note.is_chosen,
+			 'is_published':old_note.is_published,
+			 'pub_date':old_note.pub_date,
+			 'author':old_note.author}
+	form = NoteAddForm(initial=data)
+	args['form'] = form
+	args['note_id'] = note_id
+	if request.POST:
+		new_note = get_object_or_404(Note, pk=note_id)
+		new_note_form = NoteAddForm(request.POST, instance=new_note)
+		if new_note_form.is_valid():
+			
+			# new_note.title = request.POST['title']
+			# new_note.content = request.POST['content']
+			# new_note.category.id = request.POST['category']
+			# new_note.is_chosen = request.POST['is_chosen']
+			# new_note.is_published = request.POST['is_published']
+			new_note.save()
+
+			return redirect('/notes/note/%s/' % new_note.id)
+		else:
+			error = 'Не корректные данные, проверьте правильность заполнения формы <br> (все поля должны быть заполнены)'
+			new_note_form = NoteAddForm(request.POST)
+			args['error'] = error
+			args['form'] = new_note_form
+
+			return render_to_response("notes/change_note.html", args)
+
+	else:
+		return render_to_response("notes/change_note.html", args)
+
+
+
+
+def del_note(request,note_id):
+	args = {}
+	args.update(csrf(request))
+	note = get_object_or_404(Note,pk=note_id)
+	args['note'] = note
+	if request.POST:
+		note_to_del = get_object_or_404(Note, pk=request.POST['note_to_del'])
+		note_to_del.delete()
+		args['delete_success'] = True
+		return render_to_response('notes/del_note.html/', args)
+	else:
+		return render_to_response('notes/del_note.html', args)
 
 
 # def change_note(request,note_id):
@@ -104,54 +173,3 @@ def note(request, note_id):
 # 		return redirect('/notes/note/%s/' % new_note.id)
 # 	else:
 # 		return render_to_response("notes/change_note.html", args)
-
-
-
-def change_note(request,note_id):
-	args = {}
-	args.update(csrf(request))
-	old_note = Note.objects.get(pk=note_id)
-	data = {'title': old_note.title,
-			 'content':old_note.content,
-			 'category':old_note.category,
-			 'is_chosen':old_note.is_chosen,
-			 'is_published':old_note.is_published,
-			 'pub_date':old_note.pub_date,
-			 'author':old_note.author}
-	form = NoteAddForm(initial=data)
-	args['form'] = form
-	args['note_id'] = note_id
-	if request.POST:
-		new_note_form = NoteAddForm(request.POST)
-		if new_note_form.is_valid():
-			new_note = get_object_or_404(Note, pk=note_id)
-			new_note.title = request.POST['title']
-			new_note.content = request.POST['content']
-			new_note.category.id = request.POST['category']
-			new_note.is_chosen = request.POST['is_chosen']
-			new_note.is_published = request.POST['is_published']
-			new_note.save()
-
-			return redirect('/notes/note/%s/' % new_note.id)
-		else:
-			HttpResponse()
-
-	else:
-		return render_to_response("notes/change_note.html", args)
-
-
-
-
-def del_note(request,note_id):
-	args = {}
-	args.update(csrf(request))
-	note = get_object_or_404(Note,pk=note_id)
-	args['note'] = note
-	if request.POST:
-		note_to_del = get_object_or_404(Note, pk=request.POST['note_to_del'])
-		note_to_del.delete()
-		args['delete_success'] = True
-		return render_to_response('notes/del_note.html/', args)
-	else:
-		return render_to_response('notes/del_note.html', args)
-
