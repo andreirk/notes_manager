@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-venv
-*.pyc
-staticfiles
-=======
 # Byte-compiled / optimized / DLL files
 __pycache__/
-
+*.py[cod]
 
 # C extensions
 *.so
@@ -26,12 +21,6 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-
-venv
-venv/
-*.pyc
-staticfiles
-
 
 # Installer logs
 pip-log.txt
@@ -63,4 +52,3 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
->>>>>>> 8f8032d29f487ace3c84acd0e2454acb5d36e0d5
