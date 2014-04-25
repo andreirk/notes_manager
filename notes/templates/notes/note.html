@@ -26,7 +26,12 @@
             <h5>Категория: {{note.category}}</h5>
             <p> {{ note.content}} </p>
       <hr>
+<<<<<<< HEAD
+      <a class="btn btn-primary" href="/notes/changenote/{{note.id}}">Изменить</a> 
+     <a class="btn btn-warning" href="/notes/del_note/{{note.id}}">Удалить</a>
+=======
       <a href="/notes/changenote/{{note.id}}">Изменить</a>
+>>>>>>> 8f8032d29f487ace3c84acd0e2454acb5d36e0d5
         </div>
     {% else %}
         <p>No notes are available.</p>

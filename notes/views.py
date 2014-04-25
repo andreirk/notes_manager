@@ -24,7 +24,11 @@ def index(request, page_number=1):
     # return HttpResponse(output)
 
     latest_note_list = []
+<<<<<<< HEAD
+    for note in Note.objects.filter(is_published=True):
+=======
     for note in Note.objects.all():
+>>>>>>> 8f8032d29f487ace3c84acd0e2454acb5d36e0d5
     	if note.author.username == auth.get_user(request).username:
     		latest_note_list.append(note)
 
@@ -139,3 +143,18 @@ def change_note(request,note_id):
 
 
 
+<<<<<<< HEAD
+def del_note(request,note_id):
+	args = {}
+	args.update(csrf(request))
+	note = get_object_or_404(Note,pk=note_id)
+	args['note'] = note
+	if request.POST:
+		note_to_del = get_object_or_404(Note, pk=request.POST['note_to_del'])
+		note_to_del.delete()
+		args['delete_success'] = True
+		return render_to_response('notes/del_note.html/', args)
+	else:
+		return render_to_response('notes/del_note.html', args)
+=======
+>>>>>>> 8f8032d29f487ace3c84acd0e2454acb5d36e0d5
